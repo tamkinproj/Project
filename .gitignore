@@ -1,0 +1,17 @@
+# Secrets — never commit real environment files or keys
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Dependencies and build output (per-app .gitignore files cover the rest)
+node_modules/
