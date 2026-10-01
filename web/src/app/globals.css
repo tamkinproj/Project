@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+/* Design tokens. Components use these semantic names, never raw colours. */
+:root {
+  --bg: #f6f5f0;
+  --surface: #ffffff;
+  --surface-muted: #f0eee7;
+  --border: #e3dfd3;
+  --border-strong: #cfc9b8;
+  --text: #1b1d1a;
+  --text-muted: #5f665d;
+  --brand: #0d6e5a;
+  --brand-hover: #0a5a4a;
+  --brand-soft: #e1f0ea;
+  --brand-fg: #ffffff;
+  --gold: #a87c1f;
+  --danger: #b42318;
+  --danger-soft: #fdecea;
+  --warning: #9a4a07;
+  --warning-soft: #fef3e2;
+  --success: #067647;
+  --success-soft: #e3f5ea;
+  --ring: rgb(13 110 90 / 0.35);
+  --shadow: 0 1px 2px rgb(27 29 26 / 0.04), 0 4px 16px rgb(27 29 26 / 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b100e;
+    --surface: #121916;
+    --surface-muted: #19221f;
+    --border: #25312c;
+    --border-strong: #34433d;
+    --text: #e7ece9;
+    --text-muted: #97a59e;
+    --brand: #3cb796;
+    --brand-hover: #55c8a8;
+    --brand-soft: #12302a;
+    --brand-fg: #04130f;
+    --gold: #d9b25a;
+    --danger: #f97066;
+    --danger-soft: #3a1512;
+    --warning: #fdb022;
+    --warning-soft: #33240a;
+    --success: #47cd89;
+    --success-soft: #0e2a1c;
+    --ring: rgb(60 183 150 / 0.4);
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 16px rgb(0 0 0 / 0.25);
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-text: var(--text);
+  --color-muted: var(--text-muted);
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-fg: var(--brand-fg);
+  --color-gold: var(--gold);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --font-sans: var(--font-inter), var(--font-arabic), ui-sans-serif, system-ui, sans-serif;
+  --shadow-card: var(--shadow);
+}
+
+html {
+  color-scheme: light dark;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--brand-soft);
+}
+
+dialog::backdrop {
+  background: rgb(11 16 14 / 0.45);
+  backdrop-filter: blur(2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
