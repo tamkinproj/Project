@@ -16,7 +16,8 @@ Route::prefix('auth')->group(function () {
     Route::post('forgot-password', [PasswordResetController::class, 'sendLink'])->middleware('throttle:password-reset');
     Route::post('reset-password', [PasswordResetController::class, 'reset'])->middleware('throttle:password-reset');
     Route::get('email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])
-        ->middleware(['signed:relative', 'throttle:verification'])
+        // The signature is the protection; a tight per-IP limit would only hurt shared networks.
+        ->middleware('signed:relative')
         ->name('verification.verify');
 });
 

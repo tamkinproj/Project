@@ -1,6 +1,6 @@
 "use client";
 
-import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient, type InfiniteData } from "@tanstack/react-query";
 import { ArrowLeft, Flag, MessageCircle, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -70,9 +70,15 @@ function Comments({ post }: { post: Post }) {
 
   const add = useMutation({
     mutationFn: () => api<{ data: Comment }>(`posts/${post.id}/comments`, { json: { body } }),
-    onSuccess: () => {
+    onSuccess: ({ data: created }) => {
       setBody("");
       updatePost(client, post.id, (p) => ({ ...p, counts: { ...p.counts, comments: p.counts.comments + 1 } }));
+      // Show the new comment immediately, then reconcile with the server.
+      client.setQueryData<InfiniteData<CursorPage<Comment>>>(["comments", post.id], (data) =>
+        data
+          ? { ...data, pages: data.pages.map((page, i) => (i === data.pages.length - 1 && !page.data.some((c) => c.id === created.id) ? { ...page, data: [...page.data, created] } : page)) }
+          : data,
+      );
       client.invalidateQueries({ queryKey: ["comments", post.id] });
     },
     onError: (error) => toast.error(errorMessage(error)),
